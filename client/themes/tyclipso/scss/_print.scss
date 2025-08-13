@@ -4,7 +4,8 @@
 }
 
 @media print {
-  .v-main__wrap > header,
+
+  .v-main__wrap>header,
   .v-footer {
     display: none !important;
   }
@@ -13,7 +14,8 @@
     background: none !important;
   }
 
-  .v-application .is-page-header.is-page-header  {
+  .v-application .is-page-header.is-page-header {
+
     .headline,
     .headline.grey--text.text--lighten-2,
     .caption,
@@ -23,14 +25,22 @@
   }
 
   .contents {
-    h1, h2, h3, h4, h5, h6, p {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
       color: black !important;
     }
 
     /* Kapitelbeginn auf neuer Seite */
     h1:not(:first-child) {
       break-before: page !important;
-      page-break-before: always !important; /* legacy */
+      page-break-before: always !important;
+      /* legacy */
     }
 
     h1 {
@@ -42,32 +52,73 @@
     }
 
     /* Überschriften nicht am Seitenende hängen lassen */
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       break-after: avoid-page !important;
-    }
-    h1, h2 {
-      page-break-after: avoid !important; /* legacy/webkit */
-    }
-
-    /* Folgenden Block nicht vom Heading trennen */
-    h1 + *,
-    h2 + * {
-      break-before: avoid !important;
-      page-break-before: avoid !important; /* legacy/webkit */
+      page-break-after: avoid !important;
+      /* legacy/webkit */
     }
 
-    /* Große direkt folgende Elemente als Einheit behandeln */
-    h1 + img,
-    h2 + img,
-    h1 + figure,
-    h2 + figure,
-    h1 + .screenshot,
-    h2 + .screenshot {
+    /* Falls NACH der Überschrift noch ein p oder hr kommt:
+       dieses Element ebenfalls mit dem NÄCHSTEN zusammenhalten */
+    h1+p,
+    h2+p,
+    h3+p,
+    h1+hr,
+    h2+hr,
+    h3+hr {
+      break-after: avoid-page !important;
+      page-break-after: avoid !important;
+    }
+
+    /* Die „eigentliche" Folge (Liste/Bild/figure) mit dem VORHERIGEN zusammenhalten */
+    h1+ol,
+    h1+ul,
+    h1+img,
+    h1+figure,
+    h2+ol,
+    h2+ul,
+    h2+img,
+    h2+figure,
+    h3+ol,
+    h3+ul,
+    h3+img,
+    h3+figure,
+    /* Kette: Hx + p + (Liste/Bild/figure) */
+    h1+p+ol,
+    h1+p+ul,
+    h1+p+img,
+    h1+p+figure,
+    h2+p+ol,
+    h2+p+ul,
+    h2+p+img,
+    h2+p+figure,
+    h3+p+ol,
+    h3+p+ul,
+    h3+p+img,
+    h3+p+figure,
+    /* Kette: Hx + hr + (Liste/Bild/figure) */
+    h1+hr+ol,
+    h1+hr+ul,
+    h1+hr+img,
+    h1+hr+figure,
+    h2+hr+ol,
+    h2+hr+ul,
+    h2+hr+img,
+    h2+hr+figure,
+    h3+hr+ol,
+    h3+hr+ul,
+    h3+hr+img,
+    h3+hr+figure {
+      break-before: avoid-page !important;
+      page-break-before: avoid !important;
+      /* große Blöcke zusammenhalten */
       break-inside: avoid !important;
-      page-break-inside: avoid !important; /* legacy/webkit */
+      page-break-inside: avoid !important;
     }
 
-    @at-root .v-main.v-main & h1 + h2 {
+    @at-root .v-main.v-main & h1+h2 {
       margin-top: 0.5em !important;
     }
 
@@ -76,14 +127,17 @@
       display: none !important;
     }
 
-    ul, ol {
+    ul,
+    ol {
       break-before: avoid-page !important;
-      page-break-before: avoid !important; /* legacy */
+      page-break-before: avoid !important;
+      /* legacy */
     }
 
     blockquote {
       break-inside: avoid-page !important;
-      page-break-inside: avoid !important; /* legacy */
+      page-break-inside: avoid !important;
+      /* legacy */
       border-color: #dddddd !important;
       background-color: #f0f0f0 !important;
 
